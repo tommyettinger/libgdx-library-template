@@ -6,7 +6,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.17.0'
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.18.0'
     }
 }
 
@@ -41,6 +41,7 @@ if(JavaVersion.current().isJava9Compatible()) {
     allprojects {
         tasks.withType(JavaCompile) {
             options.release.set(7) // You can change this from 7 to 8 if you don't support iOS.
+			                       // Using 7 triggers deprecation warnings on newer JDKs, but RoboVM needs it.
         }
     }
 }
@@ -56,6 +57,8 @@ jar {
 }
 
 repositories {
+    // You can uncomment mavenLocal() if you need self-built versions, but it can be a problem with GWT or other sources dependencies.
+    //mavenLocal()
     mavenCentral()
     gradlePluginPortal()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
