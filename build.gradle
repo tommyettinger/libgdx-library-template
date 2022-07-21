@@ -23,6 +23,7 @@ apply plugin: 'java-library'
 apply plugin: 'com.vanniktech.maven.publish'
 
 // Changing this to 11 may be possible, but anything higher will restrict this library to being used on desktop only.
+// It may be possible to downgrade this to 1.7, but then you need to avoid using LWJGL3 within this library/its tests.
 sourceCompatibility = 1.8
 
 //Obviously, change the next line to match your project name.
@@ -87,8 +88,7 @@ dependencies {
     testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     testImplementation "junit:junit:4.13.2"
 
-    // Should be uncommented if you target Java 8, I think.
-    // Should stay commented out if you target Java 7 (the default).
+    // I don't know what conditions may require this to run tests.
     //testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
 
     constraints {
