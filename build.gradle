@@ -83,6 +83,8 @@ repositories {
 
 dependencies {
 // Change gdxVersion in gradle.properties to update or downgrade.
+// Libraries that don't use libGDX directly can change the next line
+// from `api` to `testImplementation` .
     api "com.badlogicgames.gdx:gdx:$gdxVersion"
     testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
