@@ -13,10 +13,6 @@ buildscript {
 apply plugin: 'java-library'
 apply plugin: 'com.vanniktech.maven.publish'
 
-// Changing this to 11 may be possible, but anything higher will restrict this library to being used on desktop only.
-// It may be possible to downgrade this to 1.7, but then you need to avoid using LWJGL3 within this library/its tests.
-sourceCompatibility = 1.8
-
 //Obviously, change the next line to match your project name.
 def projectName = 'libgdx-library-template'
 
@@ -39,13 +35,24 @@ if (JavaVersion.current().isJava8Compatible()) {
     }
 }
 
-if(JavaVersion.current().isJava9Compatible()) {
-    allprojects {
-        tasks.withType(JavaCompile) {
-            options.release.set(8) // LWJGL3 needs Java 8 starting in libGDX 1.11.0, which forces tests
-                                   // to use Java 8 or higher. options.release enforces compatibility with Java 8,
-                                   // including how NIO Buffers behave (which broke compatibility in Java 9).
-        }
+compileJava {
+	// Targeting Java 7 is the lowest version you could need to go at this point.
+	// libGDX itself targets a mix of Java 7 (for most backends) and 8 (for LWJGL3).
+    sourceCompatibility = 7
+    targetCompatibility = 7
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.release.set(7)
+    }
+}
+
+compileTestJava {
+	// LWJGL3 needs Java 8 starting in libGDX 1.11.0, which forces tests that use LWJGL3
+	// to use Java 8 or higher. options.release enforces compatibility with Java 8,
+	// including how NIO Buffers behave (which broke compatibility in Java 9).
+    sourceCompatibility = 8
+    targetCompatibility = 8
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.release.set(8)
     }
 }
 
