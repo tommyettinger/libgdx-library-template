@@ -27,10 +27,12 @@ version "$VERSION_NAME" // You can set the version in gradle.properties .
 // http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
 if (JavaVersion.current().isJava8Compatible()) {
     allprojects {
-        tasks.withType(Javadoc) {
-            // The -quiet is because of some sort of weird JDK JavaCompiler bug:
-            // https://discuss.gradle.org/t/passing-arguments-to-compiler-and-javadoc/1661
-            options.addStringOption('Xdoclint:none,-missing', '-quiet')
+        tasks.withType(Javadoc).tap {
+            configureEach {
+                // The -quiet is because of some sort of weird JDK JavaCompiler bug:
+                // https://discuss.gradle.org/t/passing-arguments-to-compiler-and-javadoc/1661
+                options.addStringOption('Xdoclint:none,-missing', '-quiet')
+            }
         }
     }
 }
@@ -38,6 +40,8 @@ if (JavaVersion.current().isJava8Compatible()) {
 compileJava {
 	// Targeting Java 7 is the lowest version you could need to go at this point.
 	// libGDX itself targets a mix of Java 7 (for most backends) and 8 (for LWJGL3).
+    // You should change this to 8 if any libraries you use need Java 8 (some that
+    // come to mind are simple-graphs and jdkgdxds).
     sourceCompatibility = 7
     targetCompatibility = 7
     if (JavaVersion.current().isJava9Compatible()) {
@@ -47,7 +51,7 @@ compileJava {
 
 compileTestJava {
 	// LWJGL3 needs Java 8 starting in libGDX 1.11.0, which forces tests that use LWJGL3
-	// to use Java 8 or higher. options.release enforces compatibility with Java 8,
+	// to use Java 8 or higher. Using options.release enforces compatibility with Java 8,
 	// including how NIO Buffers behave (which broke compatibility in Java 9).
     sourceCompatibility = 8
     targetCompatibility = 8
