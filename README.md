@@ -10,6 +10,6 @@ you will want to replace.
 
 This currently uses Gradle 8.x; if you want an earlier version that uses 7.x,
 [here you go](https://github.com/tommyettinger/libgdx-library-template/releases/tag/v7.6)!
-Gradle 8.x seems to be fine for library code, and for some applications that don't target Android or iOS.
-If you do target Android or iOS with an application, you should probably use Gradle 7.6.2 until the tooling for those
-platforms is updated. Android-specific or iOS-specific libraries may also want to stay on 7.6.2 .
+Gradle 8.x seems to be fine for library code, and since approximately the middle of 2023, the tooling seems
+to have finally become capable of handling Gradle 8.3 and Android/RoboVM projects. Your Android Gradle Plugin
+version should probably be 8.0.2 at this point; it may be able to go up soon as IDEA gets more support.
