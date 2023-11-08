@@ -6,7 +6,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.22.0'
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.25.3'
     }
 }
 
@@ -43,7 +43,7 @@ compileJava {
     // You should change this to 8 if any libraries you use need Java 8 (some that
     // come to mind are simple-graphs and jdkgdxds). Note that Java 20 (and almost
     // certainly higher versions) cannot build with a release set to 7; set it to 8
-    // or higher if you expect anyone to build with Java 20 or 21.
+    // or higher if you expect anyone to build with Java 20 or higher.
     sourceCompatibility = 7
     targetCompatibility = 7
     if (JavaVersion.current().isJava9Compatible()) {
@@ -79,7 +79,6 @@ repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
     google()
-    gradlePluginPortal()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     // JitPack is a good repo to have if you depend on commit versions.
@@ -95,7 +94,4 @@ dependencies {
     testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     testImplementation "junit:junit:4.13.2"
-
-    // I don't know what conditions may require this to run tests.
-    //testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.9.0"
 }
