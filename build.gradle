@@ -6,7 +6,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.22.0'
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.25.3'
     }
 }
 
@@ -66,7 +66,6 @@ repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
     google()
-    gradlePluginPortal()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     // JitPack is a good repo to have if you depend on commit versions.
