@@ -8,6 +8,23 @@ You probably also want to edit build.gradle to match the projectName and group t
 You should "Find in Files" and search for any places that use the word "template" in order to find anything
 you will want to replace.
 
+This includes some extra configuration so you can deploy more easily to [JitPack](https://jitpack.io). If you're
+testing a specific commit and don't want to push a release to GitHub or Maven Central just to test (especially
+if testing by seeing if a user can build with your library), then JitPack is a great option. It can also be an
+excellent way of making GitHub releases available via Maven or Gradle dependencies. The `jitpack.yml` file this
+includes defaults to Java 17; you can potentially raise this as high as 21, though that might cause problems
+with Kotlin or libraries like Kryo, or as low as 11 (the minimum for the publishing plugin this uses).
+
+Regardless of which JDK version JitPack uses to build, the default sourceCompatibility, targetCompatibility, and
+release are set to JDK 7, which limits compatibility to a pretty small subset of Java's features. You can increase
+those to 8, so you can use Java 8's features (lambdas, method references, default methods, etc.) but nothing
+higher (`var`, records, pattern matching, etc.). Using the language level of Java 8 is generally safe, but
+specific APIs added in Java 8 generally aren't available in RoboVM, GWT, or some versions of Android. You can
+go up to compatibility with 11 to get access to `var`, but then you lose all compatibility with RoboVM.
+
+The test code, which goes in `src/test/java/`, uses compatibility with Java 8 by default, so you can use LWJGL3
+in tests out-of-the-box.
+
 This currently uses Gradle 8.x; if you want an earlier version that uses 7.x,
 [here you go](https://github.com/tommyettinger/libgdx-library-template/releases/tag/v7.6)!
 Gradle 8.x seems to be fine for library code, and since approximately the middle of 2023, the tooling seems
