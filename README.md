@@ -6,9 +6,9 @@ You'll want to edit gradle.properties to match your library's name, description,
 You probably also want to edit build.gradle to match the projectName and group to what you want to use.
 
 You should "Find in Files" and search for any places that use the word "template" in order to find anything
-you will want to replace.
+you will want to replace. The search should be case-insensitive.
 
-This includes some extra configuration so you can deploy more easily to [JitPack](https://jitpack.io). If you're
+This includes some extra configuration so that you can deploy more easily to [JitPack](https://jitpack.io). If you're
 testing a specific commit and don't want to push a release to GitHub or Maven Central just to test (especially
 if testing by seeing if a user can build with your library), then JitPack is a great option. It can also be an
 excellent way of making GitHub releases available via Maven or Gradle dependencies. The `jitpack.yml` file this

@@ -16,7 +16,8 @@ apply plugin: 'com.vanniktech.maven.publish'
 //Obviously, change the next line to match your project name.
 def projectName = 'libgdx-library-template'
 
-//Change this to whatever Maven Central group you might publish to, which is probably not this one if you aren't Tommy Ettinger.
+//Change this to whatever Maven Central group you might publish to,
+//which is probably not this one if you aren't Tommy Ettinger.
 group 'com.github.tommyettinger'
 
 version "$VERSION_NAME" // You can set the version in gradle.properties .
@@ -62,8 +63,10 @@ compileTestJava {
     }
 }
 
-// JavaDocs will be published inside the docs/ folder, which you can easily put on GitHub Pages in your repo settings.
-// You may instead want to remove this line if frequent doc changes use up too much repo space.
+// JavaDocs will be published inside the docs/ folder, which you can easily put on GitHub Pages
+// in your repo settings.
+// You may instead want to remove this line if frequent doc changes use up too much repo space,
+// or if you use a different version control host that doesn't host HTML like this.
 javadoc.destinationDir = file('docs/apidocs')
 
 jar {
