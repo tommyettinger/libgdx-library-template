@@ -22,6 +22,18 @@ group 'com.github.tommyettinger'
 
 version "$VERSION_NAME" // You can set the version in gradle.properties .
 
+import com.vanniktech.maven.publish.JavaLibrary
+import com.vanniktech.maven.publish.JavadocJar
+
+// This just makes sure that a Javadoc JAR and a sources JAR are produced.
+mavenPublishing {
+    configure(new JavaLibrary(new JavadocJar.Javadoc(), true))
+}
+
+// This sets the Javadoc JAR to have hopefully the correct name. This may need adjustment.
+mavenPlainJavadocJar.archiveBaseName.set(projectName)
+
+// There's pretty much no reason to use any encoding other than UTF-8 .
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 // Disable JDK 8's doclint
