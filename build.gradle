@@ -84,6 +84,11 @@ compileTestJava {
 // or if you use a different version control host that doesn't host HTML like this.
 javadoc.destinationDir = file('docs/apidocs')
 
+apply plugin: 'idea'
+// This makes IDEA avoid including generated JavaDocs (which are HTML files) in any search results.
+// If you changed where JavaDocs are published above, you should change the next line, too.
+idea.module.excludeDirs += [file("docs/")]
+
 jar {
     archiveBaseName.set(projectName)
     manifest {
@@ -109,6 +114,7 @@ dependencies {
 // Libraries that don't use libGDX directly can change the next line
 // from `api` to `testImplementation` .
     api "com.badlogicgames.gdx:gdx:$gdxVersion"
+// "lwjgl3" could be changed to "headless" for command-line-only testing.
     testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     testImplementation "junit:junit:4.13.2"
