@@ -82,7 +82,12 @@ compileTestJava {
 // in your repo settings.
 // You may instead want to remove this line if frequent doc changes use up too much repo space,
 // or if you use a different version control host that doesn't host HTML like this.
-javadoc.destinationDir = file('docs/apidocs')
+javadoc {
+    destinationDir = file('docs/apidocs')
+    options {
+        links 'https://javadoc.io/doc/com.badlogicgames.gdx/gdx/latest/'
+    }
+}
 
 apply plugin: 'idea'
 // This makes IDEA avoid including generated JavaDocs (which are HTML files) in any search results.
