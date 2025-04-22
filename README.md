@@ -2,6 +2,10 @@
 
 Change this to fit your library!
 
+Normally you use this repo by forking it, making any changes to match future projects you will want to make,
+and then using this repo as a template when you make a new project. This often involves changing the packages
+from `com.github.tommyettinger` to your own reverse domain name or to use your own GitHub username.
+
 You'll want to edit gradle.properties to match your library's name, description, author, license, and so on.
 You probably also want to edit build.gradle to match the projectName and group to what you want to use.
 
