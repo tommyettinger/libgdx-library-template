@@ -6,7 +6,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.31.0'
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.34.0'
     }
 }
 
@@ -31,7 +31,7 @@ mavenPublishing {
 }
 
 // This sets the Javadoc JAR to have hopefully the correct name. This may need adjustment.
-mavenPlainJavadocJar.archiveBaseName.set(projectName)
+plainJavadocJar.archiveBaseName.set(projectName)
 
 // There's pretty much no reason to use any encoding other than UTF-8 .
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -53,13 +53,7 @@ if (JavaVersion.current().isJava8Compatible()) {
 compileJava {
 	// The default Java language level this targets is 8, which is as low as current
     // (Java 20 and newer) JDKs will permit you to target.
-    // Targeting Java 7 is the lowest version you could need to go at this point, and
-    // to target 7 you need to be using Java 19 or lower. The default used for JitPack
-    // builds in this configuration uses Java 21 to build, so you would need to change
-    // jitpack.yml to use openjdk17 instead of openjdk21 if you really want to target 7.
-	// libGDX itself targets a mix of Java 7 (for most backends) and 8 (for LWJGL3).
-    // You must use 8 if any libraries you use need Java 8 (some that
-    // come to mind are simple-graphs and jdkgdxds, plus anything that needs LWJGL3).
+    // You must use 8 if any libraries you use need Java 8, which now includes libGDX.
     sourceCompatibility = 8
     targetCompatibility = 8
     if (JavaVersion.current().isJava9Compatible()) {
@@ -103,14 +97,21 @@ jar {
 
 repositories {
     // You can comment out mavenLocal() if you have problems with GWT or other sources dependencies.
+    // A more robust solution is to keep mavenLocal() here, but delete and re-download any problematic dependencies
+    //  from inside your .m2/repository/ folder in your home directory.
     mavenLocal()
     mavenCentral()
-    maven { url 'https://s01.oss.sonatype.org' }
     google()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    // Sonatype's s01 repo, and to a lesser extent its oss repo, have been very unreliable lately, and
+    // often prevent projects from building. You probably shouldn't depend on a snapshot build in a library anyway,
+    // because that makes the library's behavior depend on an unknown dependency version, and snapshots also tend to
+    // be taken down after the next release is published.
+//    maven { url 'https://s01.oss.sonatype.org' }
+//    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+//    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     // JitPack is a good repo to have if you depend on commit versions.
     // Having the below repo might cause problems if uploading to Maven Central.
+    // JitPack commit dependencies are much better than "-SNAPSHOT" version dependencies!
     maven { url 'https://jitpack.io' }
 }
 
@@ -118,9 +119,12 @@ dependencies {
 // Change gdxVersion in gradle.properties to update or downgrade.
 // Libraries that don't use libGDX directly can change the next line
 // from `api` to `testImplementation` .
+// Using libGDX 1.13.1 is preferred over requiring 1.13.5 because 1.13.5 has serious issues on Android.
+    //noinspection GDXOutdatedVersionGradleGroovy
     api "com.badlogicgames.gdx:gdx:$gdxVersion"
 // "lwjgl3" could be changed to "headless" for command-line-only testing.
-    testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion" // if you want graphical tests
+//    testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion" // if you want command-line tests
     testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     testImplementation "junit:junit:4.13.2"
 }
