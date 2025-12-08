@@ -2,11 +2,11 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url = 'https://central.sonatype.com/repository/maven-snapshots/' }
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.34.0'
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.35.0'
     }
 }
 
@@ -18,9 +18,9 @@ def projectName = 'libgdx-library-template'
 
 //Change this to whatever Maven Central group you might publish to,
 //which is probably not this one if you aren't Tommy Ettinger.
-group 'com.github.tommyettinger'
+group = 'com.github.tommyettinger'
 
-version "$VERSION_NAME" // You can set the version in gradle.properties .
+version = "$VERSION_NAME" // You can set the version in gradle.properties .
 
 import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
@@ -54,8 +54,8 @@ compileJava {
 	// The default Java language level this targets is 8, which is as low as current
     // (Java 20 and newer) JDKs will permit you to target.
     // You must use 8 if any libraries you use need Java 8, which now includes libGDX.
-    sourceCompatibility = 8
-    targetCompatibility = 8
+    sourceCompatibility = "8"
+    targetCompatibility = "8"
     if (JavaVersion.current().isJava9Compatible()) {
         options.release.set(8)
     }
@@ -65,8 +65,8 @@ compileTestJava {
 	// LWJGL3 needs Java 8 starting in libGDX 1.11.0, which forces tests that use LWJGL3
 	// to use Java 8 or higher. Using options.release enforces compatibility with Java 8,
 	// including how NIO Buffers behave (which broke compatibility in Java 9).
-    sourceCompatibility = 8
-    targetCompatibility = 8
+    sourceCompatibility = "8"
+    targetCompatibility = "8"
     if (JavaVersion.current().isJava9Compatible()) {
         options.release.set(8)
     }
@@ -79,7 +79,7 @@ compileTestJava {
 javadoc {
     destinationDir = file('docs/apidocs')
     options {
-        links 'https://javadoc.io/doc/com.badlogicgames.gdx/gdx/latest/'
+        links('https://javadoc.io/doc/com.badlogicgames.gdx/gdx/latest/')
     }
 }
 
@@ -102,17 +102,11 @@ repositories {
     mavenLocal()
     mavenCentral()
     google()
-    // Sonatype's s01 repo, and to a lesser extent its oss repo, have been very unreliable lately, and
-    // often prevent projects from building. You probably shouldn't depend on a snapshot build in a library anyway,
-    // because that makes the library's behavior depend on an unknown dependency version, and snapshots also tend to
-    // be taken down after the next release is published.
-//    maven { url 'https://s01.oss.sonatype.org' }
-//    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-//    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+//    maven { url = 'https://central.sonatype.com/repository/maven-snapshots/' }
     // JitPack is a good repo to have if you depend on commit versions.
     // Having the below repo might cause problems if uploading to Maven Central.
     // JitPack commit dependencies are much better than "-SNAPSHOT" version dependencies!
-    maven { url 'https://jitpack.io' }
+    maven { url = 'https://jitpack.io' }
 }
 
 dependencies {

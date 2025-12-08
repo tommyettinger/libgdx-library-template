@@ -32,12 +32,7 @@ all compatibility with RoboVM.
 The test code, which goes in `src/test/java/`, uses compatibility with Java 8 by default, so you can use LWJGL3
 in tests out-of-the-box.
 
-This currently uses Gradle 8.x; if you want an earlier version that uses 7.x,
-[here you go](https://github.com/tommyettinger/libgdx-library-template/releases/tag/v7.6)!
-Gradle 8.x seems to be fine for library code, and since approximately the middle of 2023, the tooling seems
-to have finally become capable of handling Gradle 8.x and Android/RoboVM projects. Your Android Gradle Plugin
-version should probably be 8.9.3 at this point; it may be able to go up soon as IDEA gets more support.
-
-Gradle 9.0.0 has been released, but I'm not going to update this for quite a while; I want full IDE support for Gradle
-9.x before I start updating everything to it... I may never update, if there are too many breaking changes and too many
-plugins broken.
+This currently uses Gradle 9.x; if you want an earlier version that uses 8.x,
+[here you go for 8](https://github.com/tommyettinger/libgdx-library-template/releases/tag/v8.14.3)!
+If you still want the much-earlier version that uses Gradle 7,
+[here you go for 7](https://github.com/tommyettinger/libgdx-library-template/releases/tag/v7.6)!
