@@ -24,10 +24,11 @@ version = "$VERSION_NAME" // You can set the version in gradle.properties .
 
 import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.SourcesJar
 
 // This just makes sure that a Javadoc JAR and a sources JAR are produced.
 mavenPublishing {
-    configure(new JavaLibrary(new JavadocJar.Javadoc(), true))
+    configure(new JavaLibrary(new JavadocJar.Javadoc(), new SourcesJar.Sources()))
 }
 
 // This sets the Javadoc JAR to have hopefully the correct name. This may need adjustment.
