@@ -16,10 +16,14 @@ This includes some extra configuration so that you can deploy more easily to [Ji
 testing a specific commit and don't want to push a release to GitHub or Maven Central just to test (especially
 if testing by seeing if a user can build with your library), then JitPack is a great option. It can also be an
 excellent way of making GitHub releases available via Maven or Gradle dependencies. The `jitpack.yml` file this
-includes defaults to Java 21; you can potentially raise this as high as 25, though that might cause problems
+includes defaults to Java 21; you can potentially raise this as high as 27, though that might cause problems
 with Kotlin or libraries like Kryo, or as low as 11 (the minimum for the publishing plugin this uses). JDK 21
-may warn if you target Java 8, though this is only a warning. It has better generated JavaDocs than earlier
+may warn if you target Java 8, though this is only a warning. It has better generated Javadocs than earlier
 versions, though, so using 21 seems good.
+
+You might also want to target JitPack because Maven Central restricts how many releases, how many files, and their
+total file size you can publish in a month, and the limits are quite low. JitPack, in my experience, will only refuse
+to build a release if it's queried many times in a short span of time, and even that is a temporary delay.
 
 Regardless of which JDK version JitPack uses to build, the default sourceCompatibility, targetCompatibility, and
 release are set to JDK 8, which supports many of the most convenient recent Java features, but not all. You can

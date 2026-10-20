@@ -114,12 +114,12 @@ dependencies {
 // Change gdxVersion in gradle.properties to update or downgrade.
 // Libraries that don't use libGDX directly can change the next line
 // from `api` to `testImplementation` .
-// Using libGDX 1.13.1 is preferred over requiring 1.13.5 because 1.13.5 has serious issues on Android.
-    //noinspection GDXOutdatedVersionGradleGroovy
     api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
 // "lwjgl3" could be changed to "headless" for command-line-only testing.
     testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion" // if you want graphical tests
 //    testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion" // if you want command-line tests
+
     testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     testImplementation "junit:junit:4.13.2"
 }
